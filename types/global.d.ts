@@ -205,6 +205,23 @@ declare global {
         related?: string;
     };
 
+    export type UserForNewsEmail = {
+        id: string;
+        email: string;
+        name: string;
+    };
+
+    export type MarketNewsArticle = {
+        id?: string | number;
+        headline: string;
+        source?: string;
+        summary?: string;
+        datetime?: number;
+        url: string;
+        image?: string;
+        symbol?: string;
+    };
+
     type Alert = {
         id: string;
         symbol: string;
