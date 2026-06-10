@@ -12,6 +12,7 @@ const SignIn = () => {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors, isSubmitting },
     } = useForm<SignInFormData>({
         defaultValues: {
@@ -22,8 +23,14 @@ const SignIn = () => {
     });
 
     const onSubmit = async (formData: SignInFormData) => {
-        signInUser(formData);
-        router.push('/');
+        try {
+            await signInUser(formData);
+            router.push('/');
+        } catch (error) {
+            setError("root", {
+                message: error instanceof Error ? error.message : "Unable to sign in. Please try again.",
+            });
+        }
     }
 
     return (
@@ -49,6 +56,8 @@ const SignIn = () => {
                     error={errors.password}
                     validation={{ required: 'Password is required', minLength: 8 }}
                 />
+
+                {errors.root?.message && <p className="text-sm text-red-500">{errors.root.message}</p>}
 
                 <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
                     {isSubmitting ? 'Signing In' : 'Sign In'}

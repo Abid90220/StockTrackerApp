@@ -5,6 +5,10 @@ export type StoredUser = {
     image?: string;
 };
 
+type RegisteredUser = StoredUser & {
+    passwordHash: string;
+};
+
 const CURRENT_USER_STORAGE_KEY = "tradeinsight-ai-current-user";
 const REGISTERED_USERS_STORAGE_KEY = "tradeinsight-ai-users";
 
@@ -12,7 +16,7 @@ const isBrowser = () => typeof window !== "undefined";
 
 const createUserId = (email: string) => email.trim().toLowerCase();
 
-const getStoredUsers = (): StoredUser[] => {
+const getStoredUsers = (): RegisteredUser[] => {
     if (!isBrowser()) return [];
 
     try {
@@ -23,9 +27,31 @@ const getStoredUsers = (): StoredUser[] => {
     }
 };
 
-const saveStoredUsers = (users: StoredUser[]) => {
+const saveStoredUsers = (users: RegisteredUser[]) => {
     if (!isBrowser()) return;
     localStorage.setItem(REGISTERED_USERS_STORAGE_KEY, JSON.stringify(users));
+};
+
+const toStoredUser = ({ id, name, email, image }: RegisteredUser): StoredUser => ({
+    id,
+    name,
+    email,
+    image,
+});
+
+const createPasswordHash = async (password: string) => {
+    const normalizedPassword = password.trim();
+
+    if (!isBrowser() || !window.crypto?.subtle) {
+        return `plain:${normalizedPassword}`;
+    }
+
+    const data = new TextEncoder().encode(normalizedPassword);
+    const hashBuffer = await window.crypto.subtle.digest("SHA-256", data);
+
+    return Array.from(new Uint8Array(hashBuffer))
+        .map((byte) => byte.toString(16).padStart(2, "0"))
+        .join("");
 };
 
 export const getCurrentUser = (): StoredUser | null => {
@@ -33,8 +59,21 @@ export const getCurrentUser = (): StoredUser | null => {
 
     try {
         const value = localStorage.getItem(CURRENT_USER_STORAGE_KEY);
-        return value ? JSON.parse(value) : null;
+        const currentUser = value ? (JSON.parse(value) as StoredUser) : null;
+        if (!currentUser) return null;
+
+        const registeredUser = getStoredUsers().find(
+            (user) => user.email === currentUser.email && Boolean(user.passwordHash)
+        );
+
+        if (!registeredUser) {
+            localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
+            return null;
+        }
+
+        return toStoredUser(registeredUser);
     } catch {
+        localStorage.removeItem(CURRENT_USER_STORAGE_KEY);
         return null;
     }
 };
@@ -51,33 +90,47 @@ export const setCurrentUser = (user: StoredUser | null) => {
     window.dispatchEvent(new Event("tradeinsight-ai-auth-change"));
 };
 
-export const registerUser = (formData: SignUpFormData): StoredUser => {
+export const registerUser = async (formData: SignUpFormData): Promise<StoredUser> => {
     const email = formData.email.trim().toLowerCase();
-    const user: StoredUser = {
+    const users = getStoredUsers();
+    const existingUser = users.find((storedUser) => storedUser.email === email);
+
+    if (existingUser?.passwordHash) {
+        throw new Error("An account with this email already exists. Please sign in.");
+    }
+
+    const user: RegisteredUser = {
         id: createUserId(email),
         name: formData.fullName.trim(),
         email,
+        passwordHash: await createPasswordHash(formData.password),
     };
 
-    const users = getStoredUsers();
     const nextUsers = [...users.filter((storedUser) => storedUser.email !== email), user];
     saveStoredUsers(nextUsers);
-    setCurrentUser(user);
+    setCurrentUser(toStoredUser(user));
 
-    return user;
+    return toStoredUser(user);
 };
 
-export const signInUser = (formData: SignInFormData): StoredUser => {
+export const signInUser = async (formData: SignInFormData): Promise<StoredUser> => {
     const email = formData.email.trim().toLowerCase();
     const existingUser = getStoredUsers().find((storedUser) => storedUser.email === email);
-    const user =
-        existingUser ??
-        ({
-            id: createUserId(email),
-            name: email.split("@")[0] || "TradeInsight User",
-            email,
-        } satisfies StoredUser);
 
+    if (!existingUser) {
+        throw new Error("No account found with this email. Please sign up first.");
+    }
+
+    if (!existingUser.passwordHash) {
+        throw new Error("This account needs to be recreated. Please sign up again.");
+    }
+
+    const passwordHash = await createPasswordHash(formData.password);
+    if (existingUser.passwordHash !== passwordHash) {
+        throw new Error("Incorrect password. Please try again.");
+    }
+
+    const user = toStoredUser(existingUser);
     setCurrentUser(user);
 
     return user;
@@ -91,7 +144,16 @@ export const updateCurrentUser = (updates: Partial<StoredUser>) => {
     setCurrentUser(nextUser);
 
     const users = getStoredUsers();
-    saveStoredUsers(users.map((user) => (user.id === nextUser.id ? nextUser : user)));
+    saveStoredUsers(
+        users.map((user) =>
+            user.id === nextUser.id
+                ? {
+                      ...user,
+                      ...updates,
+                  }
+                : user
+        )
+    );
 
     return nextUser;
 };

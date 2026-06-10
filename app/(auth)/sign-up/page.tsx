@@ -16,6 +16,7 @@ const SignUp = () => {
         register,
         handleSubmit,
         control,
+        setError,
         formState: { errors, isSubmitting },
     } = useForm<SignUpFormData>({
         defaultValues: {
@@ -31,7 +32,14 @@ const SignUp = () => {
     }, );
 
     const onSubmit = async (formData: SignUpFormData) => {
-        registerUser(formData);
+        try {
+            await registerUser(formData);
+        } catch (error) {
+            setError("root", {
+                message: error instanceof Error ? error.message : "Unable to create this account. Please try again.",
+            });
+            return;
+        }
 
         try {
             const response = await fetch('/api/email-subscribers', {
@@ -120,6 +128,8 @@ const SignUp = () => {
                     error={errors.preferredIndustry}
                     required
                 />
+
+                {errors.root?.message && <p className="text-sm text-red-500">{errors.root.message}</p>}
 
                 <Button type="submit" disabled={isSubmitting} className="yellow-btn w-full mt-5">
                     {isSubmitting ? 'Creating Account' : 'Start Your Investing Journey'}
