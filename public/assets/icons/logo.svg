@@ -1,8 +1,8 @@
 <svg width="190" height="32" viewBox="0 0 190 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title">
 <title id="title">TradeInsight AI</title>
 <rect x="1" y="1" width="30" height="30" rx="8" fill="#16A34A"/>
-<path d="M9 21.5L14.2 16.3L18.1 20.2L25 11.5" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M23.5 11.5H25V13" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="40" y="21.7" fill="#14532D" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="0">TradeInsight</text>
-<text x="151" y="21.7" fill="#16A34A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="0">AI</text>
+<path d="M9 21.5L14.2 16.3L18.1 20.2L25 11.5" stroke="#030A06" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M23.5 11.5H25V13" stroke="#030A06" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40" y="21.7" fill="#E5F2E9" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="0">TradeInsight</text>
+<text x="151" y="21.7" fill="#4ADE80" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="0">AI</text>
 </svg>

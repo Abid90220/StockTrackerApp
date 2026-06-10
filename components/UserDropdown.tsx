@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,40 +12,59 @@ import {
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {Button} from "@/components/ui/button";
-import {LogOut} from "lucide-react";
+import {LogIn, LogOut} from "lucide-react";
 import NavItems from "@/components/NavItems";
-
-const PROFILE_IMAGE_STORAGE_KEY = "tradeinsight-ai-profile-image";
-
-const defaultUser = {
-    name: "TradeInsight User",
-    email: "you@tradeinsight.ai",
-    image: "",
-};
+import {getCurrentUser, setCurrentUser, StoredUser, updateCurrentUser} from "@/lib/auth";
 
 const UserDropdown = () => {
     const router = useRouter();
-    const [profileImageUrl, setProfileImageUrl] = useState(() => {
-        if (typeof window === "undefined") return defaultUser.image;
-        return localStorage.getItem(PROFILE_IMAGE_STORAGE_KEY) ?? defaultUser.image;
-    });
+    const [user, setUser] = useState<StoredUser | null>(null);
+    const [profileImageUrl, setProfileImageUrl] = useState("");
+
+    useEffect(() => {
+        const syncUser = () => {
+            const currentUser = getCurrentUser();
+            setUser(currentUser);
+            setProfileImageUrl(currentUser?.image ?? "");
+        };
+
+        syncUser();
+        window.addEventListener("tradeinsight-ai-auth-change", syncUser);
+        window.addEventListener("storage", syncUser);
+
+        return () => {
+            window.removeEventListener("tradeinsight-ai-auth-change", syncUser);
+            window.removeEventListener("storage", syncUser);
+        };
+    }, []);
 
     const handleSignOut = async () => {
+        setCurrentUser(null);
+        setUser(null);
+        setProfileImageUrl("");
         router.push("/sign-in");
     };
 
     const handleProfileImageChange = (value: string) => {
         const trimmedValue = value.trim();
         setProfileImageUrl(value);
-
-        if (trimmedValue) {
-            localStorage.setItem(PROFILE_IMAGE_STORAGE_KEY, trimmedValue);
-        } else {
-            localStorage.removeItem(PROFILE_IMAGE_STORAGE_KEY);
-        }
+        const updatedUser = updateCurrentUser({image: trimmedValue || undefined});
+        setUser(updatedUser);
     };
 
-    const user = {...defaultUser, image: profileImageUrl.trim()};
+    if (!user) {
+        return (
+            <Button
+                variant="ghost"
+                className="flex items-center gap-2 text-gray-400 hover:text-yellow-500"
+                onClick={() => router.push("/sign-in")}
+            >
+                <LogIn className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign In</span>
+            </Button>
+        );
+    }
+
     const userInitial = user.name.charAt(0).toUpperCase();
 
     return (

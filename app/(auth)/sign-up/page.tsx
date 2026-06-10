@@ -8,6 +8,7 @@ import {INVESTMENT_GOALS, PREFERRED_INDUSTRIES, RISK_TOLERANCE_OPTIONS} from "@/
 import {CountrySelectField} from "@/components/forms/CountrySelectField";
 import FooterLink from "@/components/forms/FooterLink";
 import {useRouter} from "next/navigation";
+import {registerUser} from "@/lib/auth";
 
 const SignUp = () => {
     const router = useRouter()
@@ -29,7 +30,23 @@ const SignUp = () => {
         mode: 'onBlur'
     }, );
 
-    const onSubmit = async () => {
+    const onSubmit = async (formData: SignUpFormData) => {
+        registerUser(formData);
+
+        try {
+            const response = await fetch('/api/email-subscribers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                console.warn('Could not register daily digest subscriber', await response.text());
+            }
+        } catch (error) {
+            console.warn('Could not register daily digest subscriber', error);
+        }
+
         router.push('/');
     }
 

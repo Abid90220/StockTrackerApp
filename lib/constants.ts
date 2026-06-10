@@ -38,21 +38,21 @@ export const CONDITION_OPTIONS = [
 
 // TradingView Charts
 export const MARKET_OVERVIEW_WIDGET_CONFIG = {
-    colorTheme: 'light',
+    colorTheme: 'dark',
     dateRange: '12M', // last 12 months
     locale: 'en', // language
     largeChartUrl: '', // link to a large chart if needed
     isTransparent: true, // makes background transparent
     showFloatingTooltip: true, // show tooltip on hover
-    plotLineColorGrowing: '#16A34A',
-    plotLineColorFalling: '#16A34A',
-    gridLineColor: 'rgba(183, 215, 194, 0.35)',
-    scaleFontColor: '#1F3D2A',
-    belowLineFillColorGrowing: 'rgba(22, 163, 74, 0.12)',
-    belowLineFillColorFalling: 'rgba(22, 163, 74, 0.12)',
+    plotLineColorGrowing: '#4ADE80',
+    plotLineColorFalling: '#4ADE80',
+    gridLineColor: 'rgba(31, 61, 42, 0.55)',
+    scaleFontColor: '#E5F2E9',
+    belowLineFillColorGrowing: 'rgba(74, 222, 128, 0.16)',
+    belowLineFillColorFalling: 'rgba(74, 222, 128, 0.16)',
     belowLineFillColorGrowingBottom: 'rgba(22, 163, 74, 0)',
     belowLineFillColorFallingBottom: 'rgba(22, 163, 74, 0)',
-    symbolActiveColor: 'rgba(22, 163, 74, 0.08)',
+    symbolActiveColor: 'rgba(74, 222, 128, 0.12)',
     tabs: [
         {
             title: 'Financial',
@@ -88,7 +88,7 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
         },
     ],
     support_host: 'https://www.tradingview.com', // TradingView host
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#07130B',
     width: '100%', // full width
     height: 600, // height in px
     showSymbolLogo: true, // show logo next to symbols
@@ -103,7 +103,7 @@ export const HEATMAP_WIDGET_CONFIG = {
     isTransparent: true,
     locale: 'en',
     symbolUrl: '',
-    colorTheme: 'light',
+    colorTheme: 'dark',
     exchanges: [],
     hasTopBar: false,
     isDataSetEnabled: false,
@@ -117,7 +117,7 @@ export const HEATMAP_WIDGET_CONFIG = {
 export const TOP_STORIES_WIDGET_CONFIG = {
     displayMode: 'regular',
     feedMode: 'market',
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: true,
     locale: 'en',
     market: 'stock',
@@ -131,9 +131,9 @@ export const MARKET_DATA_WIDGET_CONFIG = {
     height: 600,
     locale: 'en',
     showSymbolLogo: true,
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: false,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#07130B',
     symbolsGroups: [
         {
             name: 'Financial',
@@ -172,7 +172,7 @@ export const MARKET_DATA_WIDGET_CONFIG = {
 
 export const SYMBOL_INFO_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: true,
     locale: 'en',
     width: '100%',
@@ -193,10 +193,10 @@ export const CANDLE_CHART_WIDGET_CONFIG = (symbol: string) => ({
     save_image: false,
     style: 1,
     symbol: symbol.toUpperCase(),
-    theme: 'light',
+    theme: 'dark',
     timezone: 'Etc/UTC',
-    backgroundColor: '#FFFFFF',
-    gridColor: '#E8F5EC',
+    backgroundColor: '#07130B',
+    gridColor: '#1F3D2A',
     watchlist: [],
     withdateranges: false,
     compareSymbols: [],
@@ -219,10 +219,10 @@ export const BASELINE_WIDGET_CONFIG = (symbol: string) => ({
     save_image: false,
     style: 10,
     symbol: symbol.toUpperCase(),
-    theme: 'light',
+    theme: 'dark',
     timezone: 'Etc/UTC',
-    backgroundColor: '#FFFFFF',
-    gridColor: '#E8F5EC',
+    backgroundColor: '#07130B',
+    gridColor: '#1F3D2A',
     watchlist: [],
     withdateranges: false,
     compareSymbols: [],
@@ -233,7 +233,7 @@ export const BASELINE_WIDGET_CONFIG = (symbol: string) => ({
 
 export const TECHNICAL_ANALYSIS_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: 'true',
     locale: 'en',
     width: '100%',
@@ -244,7 +244,7 @@ export const TECHNICAL_ANALYSIS_WIDGET_CONFIG = (symbol: string) => ({
 
 export const COMPANY_PROFILE_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: 'true',
     locale: 'en',
     width: '100%',
@@ -253,7 +253,7 @@ export const COMPANY_PROFILE_WIDGET_CONFIG = (symbol: string) => ({
 
 export const COMPANY_FINANCIALS_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
-    colorTheme: 'light',
+    colorTheme: 'dark',
     isTransparent: 'true',
     locale: 'en',
     width: '100%',

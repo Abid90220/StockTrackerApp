@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import InputField from '@/components/forms/InputField';
 import FooterLink from '@/components/forms/FooterLink';
 import {useRouter} from "next/navigation";
+import {signInUser} from "@/lib/auth";
 
 const SignIn = () => {
     const router = useRouter()
@@ -20,7 +21,8 @@ const SignIn = () => {
         mode: 'onBlur',
     });
 
-    const onSubmit = async () => {
+    const onSubmit = async (formData: SignInFormData) => {
+        signInUser(formData);
         router.push('/');
     }
 

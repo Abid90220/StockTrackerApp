@@ -45,37 +45,37 @@
 
 :root {
     --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.21 0.07 150);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.21 0.07 150);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.21 0.07 150);
-    --primary: oklch(0.62 0.18 150);
-    --primary-foreground: oklch(1 0 0);
-    --secondary: oklch(0.96 0.03 150);
-    --secondary-foreground: oklch(0.21 0.07 150);
-    --muted: oklch(0.96 0.03 150);
-    --muted-foreground: oklch(0.48 0.05 150);
-    --accent: oklch(0.94 0.05 150);
-    --accent-foreground: oklch(0.21 0.07 150);
+    --background: oklch(0.145 0.025 150);
+    --foreground: oklch(0.94 0.025 150);
+    --card: oklch(0.185 0.03 150);
+    --card-foreground: oklch(0.94 0.025 150);
+    --popover: oklch(0.185 0.03 150);
+    --popover-foreground: oklch(0.94 0.025 150);
+    --primary: oklch(0.72 0.19 150);
+    --primary-foreground: oklch(0.12 0.025 150);
+    --secondary: oklch(0.235 0.035 150);
+    --secondary-foreground: oklch(0.9 0.025 150);
+    --muted: oklch(0.235 0.035 150);
+    --muted-foreground: oklch(0.7 0.035 150);
+    --accent: oklch(0.28 0.07 150);
+    --accent-foreground: oklch(0.94 0.025 150);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.86 0.04 150);
-    --input: oklch(0.86 0.04 150);
-    --ring: oklch(0.62 0.18 150);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.62 0.18 150);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(1 0 0);
-    --sidebar-foreground: oklch(0.21 0.07 150);
-    --sidebar-primary: oklch(0.62 0.18 150);
-    --sidebar-primary-foreground: oklch(1 0 0);
-    --sidebar-accent: oklch(0.94 0.05 150);
-    --sidebar-accent-foreground: oklch(0.21 0.07 150);
-    --sidebar-border: oklch(0.86 0.04 150);
-    --sidebar-ring: oklch(0.62 0.18 150);
+    --border: oklch(0.36 0.045 150);
+    --input: oklch(0.28 0.04 150);
+    --ring: oklch(0.72 0.19 150);
+    --chart-1: oklch(0.72 0.19 150);
+    --chart-2: oklch(0.64 0.16 165);
+    --chart-3: oklch(0.84 0.16 140);
+    --chart-4: oklch(0.58 0.13 150);
+    --chart-5: oklch(0.9 0.12 130);
+    --sidebar: oklch(0.16 0.025 150);
+    --sidebar-foreground: oklch(0.94 0.025 150);
+    --sidebar-primary: oklch(0.72 0.19 150);
+    --sidebar-primary-foreground: oklch(0.12 0.025 150);
+    --sidebar-accent: oklch(0.28 0.07 150);
+    --sidebar-accent-foreground: oklch(0.94 0.025 150);
+    --sidebar-border: oklch(0.36 0.045 150);
+    --sidebar-ring: oklch(0.72 0.19 150);
 }
 
 .dark {
@@ -114,19 +114,24 @@
 
 /* === CUSTOM COLOR THEME === */
 @theme {
-    /* TradeInsight AI Green + White Scale */
-    --color-gray-900: #F7FCF8;
-    --color-gray-800: #FFFFFF;
-    --color-gray-700: #E8F5EC;
-    --color-gray-600: #B7D7C2;
-    --color-gray-500: #5F7A6A;
-    --color-gray-400: #1F3D2A;
+    /* TradeInsight AI Green + Black Scale */
+    --color-gray-900: #030A06;
+    --color-gray-800: #07130B;
+    --color-gray-700: #0E2114;
+    --color-gray-600: #1F3D2A;
+    --color-gray-500: #8FA99A;
+    --color-gray-400: #E5F2E9;
+    --color-gray-100: #F4FFF7;
 
     /* Brand Colors */
-    --color-blue-600: #15803D;
-    --color-yellow-400: #34D399;
+    --color-blue-600: #22C55E;
+    --color-yellow-400: #4ADE80;
     --color-yellow-500: #16A34A;
-    --color-teal-400: #22C55E;
+    --color-yellow-600: #15803D;
+    --color-teal-400: #34D399;
+    --color-green-400: #4ADE80;
+    --color-green-500: #22C55E;
+    --color-green-600: #16A34A;
     --color-red-500: #FF495B;
     --color-orange-500: #FF8243;
     --color-purple-500: #D13BFF;
@@ -179,7 +184,7 @@
         @apply text-xs md:text-lg font-bold text-gray-400 not-italic;
     }
     .auth-dashboard-preview {
-        @apply border-6 border-gray-800 left-0 hidden w-[1024px] h-auto max-w-none lg:block rounded-xl shadow-2xl;
+        @apply border-6 border-gray-800 left-0 hidden w-[1024px] max-w-none lg:block rounded-xl shadow-2xl overflow-hidden bg-gray-900;
     }
     .form-title {
         @apply text-4xl font-bold text-gray-400 mb-10;
@@ -376,6 +381,93 @@
     .alert-delete-btn {
         @apply text-gray-400 rounded-full hover:bg-red-600/15 bg-transparent cursor-pointer transition-colors;
     }
+    .preview-header {
+        @apply h-18 px-8 flex items-center justify-between border-b border-gray-600 bg-gray-800;
+    }
+    .preview-nav {
+        @apply flex items-center gap-10 text-base font-medium text-gray-500;
+    }
+    .preview-nav span:first-child {
+        @apply text-gray-100;
+    }
+    .preview-user {
+        @apply size-10 rounded-full bg-yellow-500 text-gray-900 flex items-center justify-center text-sm font-bold;
+    }
+    .preview-body {
+        @apply grid grid-cols-2 gap-6 p-8 bg-gray-900;
+    }
+    .preview-panel {
+        @apply rounded-lg border border-gray-600 bg-gray-800 p-5;
+    }
+    .preview-market-panel {
+        @apply row-span-2;
+    }
+    .preview-section-title {
+        @apply flex items-start justify-between gap-4 mb-5;
+    }
+    .preview-section-title h2 {
+        @apply text-xl font-bold text-gray-100;
+    }
+    .preview-section-title span {
+        @apply text-sm font-medium text-yellow-400;
+    }
+    .preview-tabs {
+        @apply mb-5 grid grid-cols-3 rounded bg-gray-700 p-1 text-center text-sm font-medium text-gray-500;
+    }
+    .preview-tabs span:first-child {
+        @apply rounded bg-gray-600 text-gray-100;
+    }
+    .preview-chart {
+        @apply h-56 rounded bg-gray-900/70 p-4;
+    }
+    .preview-chart svg {
+        @apply h-full w-full;
+    }
+    .preview-stat-grid {
+        @apply mt-5 grid grid-cols-3 gap-4;
+    }
+    .preview-stat {
+        @apply rounded border border-gray-600 bg-gray-700 p-4;
+    }
+    .preview-stat span {
+        @apply block text-sm text-gray-500;
+    }
+    .preview-stat strong {
+        @apply mt-3 block text-lg font-bold text-gray-100;
+    }
+    .preview-stat em {
+        @apply mt-1 block text-sm font-semibold not-italic text-yellow-400;
+    }
+    .preview-watchlist {
+        @apply flex flex-col gap-4;
+    }
+    .preview-stock {
+        @apply grid grid-cols-[44px_1fr_auto] items-center gap-4 rounded border border-gray-600 bg-gray-700 p-4;
+    }
+    .preview-symbol {
+        @apply size-11 rounded bg-yellow-500 text-gray-900 flex items-center justify-center text-sm font-bold;
+    }
+    .preview-stock strong {
+        @apply block text-base font-bold text-gray-100;
+    }
+    .preview-stock span {
+        @apply block text-sm text-gray-500;
+    }
+    .preview-price {
+        @apply text-right;
+    }
+    .preview-price span {
+        @apply font-semibold text-yellow-400;
+    }
+    .preview-insight-panel {
+        @apply min-h-48;
+    }
+    .preview-insight {
+        @apply flex gap-4 rounded border border-yellow-500/25 bg-yellow-500/10 p-4 text-base leading-relaxed text-gray-400;
+    }
+    .preview-pulse {
+        @apply mt-2 size-3 shrink-0 rounded-full bg-yellow-400 shadow-[0_0_24px_rgba(74,222,128,0.8)];
+    }
 }
 
 /* Market News Component Styles */
@@ -391,30 +483,30 @@
 /* TradingView Advanced Chart Widget Styles */
 .tradingview-widget-container {
     position: relative;
-    background-color: #FFFFFF !important;
+    background-color: #07130B !important;
     border-radius: 8px !important;
     overflow: hidden !important;
 }
 
 .tv-embed-widget-wrapper__body {
-    background-color: #FFFFFF !important;
+    background-color: #07130B !important;
 }
 
 .tradingview-widget-container__widget {
-    background-color: #FFFFFF !important;
+    background-color: #07130B !important;
     height: 100% !important;
 
 }
 
 .widget-stock-heatmap-container .screenerMapWrapper-BBVfGP0b {
     overflow: hidden !important;
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
+    background: #07130B !important;
+    background-color: #07130B !important;
 }
 
 .canvasContainer-tyaAU8aH {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
+    background: #07130B !important;
+    background-color: #07130B !important;
 }
 
 .tv-site-widget--bg_none {
@@ -423,35 +515,35 @@
 
 .tradingview-widget-copyright {
     font-size: 11px;
-    color: #9ca3af;
+    color: #8FA99A;
     text-align: center;
     padding: 4px 0;
     background-color: transparent;
 }
 
 .tradingview-widget-copyright a {
-    color: #16A34A;
+    color: #4ADE80;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .tradingview-widget-copyright a:hover {
-    color: #15803D;
+    color: #22C55E;
     text-decoration: underline;
 }
 
 .tv-embed-widget-wrapper .tv-embed-widget-wrapper__body {
-    background: #FFFFFF !important;
-    background-color: #FFFFFF !important;
+    background: #07130B !important;
+    background-color: #07130B !important;
 }
 
 .tradingview-widget-container iframe {
-    background-color: #FFFFFF !important;
+    background-color: #07130B !important;
     width: 100% !important;
 }
 
 .custom-chart.tradingview-widget-container iframe {
-    border: 1px solid #B7D7C2;
+    border: 1px solid #1F3D2A;
     border-radius: 8px !important;
     overflow: hidden !important;
 }
@@ -477,13 +569,13 @@
 }
 
 .scrollbar-hide-default:hover {
-    scrollbar-color: #B7D7C2 transparent;
+    scrollbar-color: #1F3D2A transparent;
 }
 
 .scrollbar-hide-default:hover::-webkit-scrollbar-thumb {
-    background-color: #B7D7C2;
+    background-color: #1F3D2A;
 }
 
 .scrollbar-hide-default::-webkit-scrollbar-thumb:hover {
-    background-color: #5F7A6A;
+    background-color: #4ADE80;
 }
